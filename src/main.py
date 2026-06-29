@@ -188,50 +188,51 @@ def update_bugs(all_bugs):
     print(f"\nBug '{bug_name}' not found.")
 
 def main():
-    all_bugs = load_bugs_data()
-    is_first_time = check_first_time(all_bugs)
-    user_response = greetings(is_first_time)
-    
-    if all_bugs is None:
-        all_bugs = []
-    
-    if user_response == "1":
-        result = add_bugs()
-        if result:
-            bug_name, bug_status, bug_priority = result
-            all_bugs.append({
-                bug_name: {
-                    'status': bug_status,
-                    'priority': bug_priority
-                }
-            })
-            save_bugs_data(all_bugs)
-            print("Bug added.")
-        go_back_option()
-    
-    elif user_response == "2":
-        view_all_bugs(all_bugs)
-        go_back_option()
-    
-    elif user_response == "3":
-        update_bugs(all_bugs)
-        go_back_option()
-    
-    elif user_response == "4":
-        if clear_all_bugs():
-            all_bugs = []
-            save_bugs_data(all_bugs)
-            print("All data successfully deleted")
-        else:
-            print("Cancelled")
-        go_back_option()
-    
-    elif user_response == "5":
-        print("Exited program.")
-        sys.exit()
-    else:
-        print("Invalid selection. Please try again.")
-        main()
+    while True:
+        all_bugs = load_bugs_data()
+        is_first_time = check_first_time(all_bugs)
+        user_response = greetings(is_first_time)
 
+        if all_bugs is None:
+            all_bugs = []
+    
+        if user_response == "1":
+            result = add_bugs()
+            if result:
+                bug_name, bug_status, bug_priority = result
+                all_bugs.append({
+                    bug_name: {
+                        'status': bug_status,
+                        'priority': bug_priority
+                    }
+                })
+                save_bugs_data(all_bugs)
+                print("Bug added.")
+            go_back_option()
+
+        elif user_response == "2":
+            view_all_bugs(all_bugs)
+            go_back_option()
+
+        elif user_response == "3":
+            update_bugs(all_bugs)
+            go_back_option()
+
+        elif user_response == "4":
+            if clear_all_bugs():
+                all_bugs = []
+                save_bugs_data(all_bugs)
+                print("All data successfully deleted")
+            else:
+                print("Cancelled")
+            go_back_option()
+
+        elif user_response == "5":
+            print("Exited program.")
+            sys.exit()
+        else:
+            print("Invalid selection. Please try again.")
+            main()
+    
 if __name__ == "__main__":
     main()
